@@ -10,9 +10,9 @@ ActivityBucketList.destroy_all
 
 puts "Getting new data..."
 #creating users
-5.times do
-    User.create!( first_name: Faker::Name.first_name , last_name:Faker::Name.last_name , username: Faker::Internet.user_name, password_digest: Faker::Internet.password )
-end
+
+u1 = User.create!( first_name: "Hayet" , last_name: "K" , username: "Hayetk", password_digest: "test" )
+
 
 # creating categories
 c1 = Category.create!( name: "Accra Nightlife", description: "xplore the infamous streets of Ghana that come alive at night time"  )
@@ -52,12 +52,12 @@ a12 = Activity.create!( category_id: c4.id, image_url:"https://ichef.bbci.co.uk/
 
 #creating likes
 5.times do
-    Like.create!( user_id: User.all.sample.id, activity_id: Activity.all.sample.id, likes: rand(1..20) )
+    Like.create!( user_id: u1.id, activity_id: Activity.all.sample.id, likes: rand(1..20) )
 end
 
 #creating bucket list
 5.times do
-    BucketList.create!( user_id: User.all.sample.id, name:Faker::Hobby.activity)
+    BucketList.create!( user_id: u1.id, name:Faker::Hobby.activity)
 end
 
 #creating activity bucket list
