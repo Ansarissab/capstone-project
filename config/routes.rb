@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes, only: [:index, :show, :edit :destroy]
   resources :activity_bucket_lists
   resources :bucket_lists
   

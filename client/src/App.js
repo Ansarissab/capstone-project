@@ -1,20 +1,31 @@
 // import { useState, useEffect } from "react";
-import Navbar from "./components/Navbar";
+import Navbar from './components/Navbar';
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App(){
-  // const [count, setCount] = useState(0);
+  
+  const [user, setUser] = useState(null);
+  const [ categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("/hello")
-  //     .then((r) => r.json())
-  //     .then((data) => setCount(data.count));
-  // }, []);
+  useEffect(() => {
+    fetch("/me")
+    .then((r) => r.json())
+    .then((user) => setUser(user));
+  }, []);
+
+  useEffect(() => {
+    fetch("/categories")
+    .then((r) => r.json())
+    .then((categories) => setCategories(categories));
+  }, []);
+
+  
+
 
   return (
-    // <div className="App">
-    //   <h1>Page Count: {count}</h1>
-    // </div>
+   
     <>
       <Router>
         <Navbar/>
