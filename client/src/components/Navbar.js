@@ -1,43 +1,42 @@
 import React from 'react'
-import { SearchIcon, UserIcon, ShoppingBagIcon, XIcon } from '@heroicons/react/outline'
-import { useNavigate } from 'react-router-dom'
+//import { SearchIcon, UserIcon, ShoppingBagIcon, XIcon } from '@heroicons/react/outline'
+import {  Link, useNavigate } from 'react-router-dom'
 
 
 
-const Navbar = ({user}) => {
-    let navigate = useNavigate()
 
-    function loginClick(){
-        user ? navigate.push('/user') : navigate.push('/login')
-    }
-    function aboutClick(){
-        navigate.push('/about')
-    }
-    function categoriesClick(){
-        navigate.push('/categories')
-    }
-    function homeClick(){
-        navigate.push('/home')
-    }
-    function bucketListClick(){
-        navigate.push('/bucketList')
-    }
-
+const Navbar = ({user, setUser}) => {
+  let navigate = useNavigate()
+  function handleLogout (e) {
+    fetch(`/signout`, {
+        method: "DELETE"
+    })
+        .then((res)=>{
+            if (res.ok){
+                setUser(null)
+            }
+        })
+    navigate('/signin')
     
-
+  }
 
   return (
+
     <header>
         <div className='container'></div>
             <div className='container-section'></div>
-                <div className='home-link' onClick={homeClick}>
-                    {/* <img src="" alt="" /> add logo image here */}
-                    <h1>Website Name</h1>
-                </div>
-                <h5 className='about-link' onClick={aboutClick}>ABOUT</h5>
+                <Link to="/home" className='home-link-logo' >Website Name</Link>
             <div>
-                <h5>{user ? `Welcome, ${user.name}.` : null}</h5>
-                {user ? <h5 onClick={bucketListClick}>Bucket</h5> : null}
+                <Link to="/home" className='home-link' >Home</Link><br />
+                <Link to="/about" className='about-link'>About</Link><br />
+                <Link to="/categories" className='category-link'>Categories</Link><br />
+                
+                 {user ? (
+                <>
+                 <Link to="/bucket_lists">Bucket List</Link> <br/>
+                 <Link to="/signout" onClick={()=> handleLogout() }>Sign Out</Link>
+                 </>)
+                 : <Link to="/login"className='login-link'>Login</Link>}
             </div>
     </header>
   );

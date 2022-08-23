@@ -20,7 +20,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_143236) do
     t.string "name"
     t.string "description"
     t.string "location"
-    t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,7 +34,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_143236) do
   create_table "bucket_lists", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
-    t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,14 +55,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_143236) do
 
   create_table "notes", force: :cascade do |t|
     t.string "title"
-    t.string "note"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
     t.string "username"
     t.string "password_digest"
     t.datetime "created_at", null: false

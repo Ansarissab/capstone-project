@@ -3,7 +3,6 @@ class CreateBucketLists < ActiveRecord::Migration[7.0]
     create_table :bucket_lists do |t|
       t.integer :user_id
       t.string :name
-      t.string :note
 
       t.timestamps
     end

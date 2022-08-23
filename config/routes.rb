@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :notes, only: [:index, :show, :edit :destroy]
+  resources :notes, only: [:index, :show, :create, :edit, :destroy]
   resources :activity_bucket_lists
   resources :bucket_lists
   
@@ -17,9 +17,11 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
   get '/categories', to: 'categories#index'
-
+  # post '/add-activity' to ''
   post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+  delete '/signout', to: 'sessions#destroy'
   # delete '/deleteaccount', to: 'users#destroy'
+
+  get '/user_bucket_lists', to: 'bucket_lists#user_bucket_lists'
 
 end

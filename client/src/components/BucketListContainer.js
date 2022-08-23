@@ -1,37 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ActivityCard from './ActivityCard'
 import Note from './Note'
+import BucketListForm from './BucketListForm'
+import DisplayBucketList from './DisplayBucketList'
 
-const BucketListContainer = ({user, activities,removeActivity, notes, addNote, removeNote}) => {
-    const activityCard = activities.map((item)=>{
-        return<ActivityCard key={item.id} activity={item}
-        handleRemove={removeActivity} />
-    })
+const BucketListContainer = () => {
+  const [bucketLists, setBucketLists] = useState([])
 
-    const notesCard = notes.map((item)=>{
-        return<Note key={item.id} activity={item}
-        handleRemove={removeNote} />
-    })
+   function handleBucketList(activity) {
+    let id = activity.id;
+    console.log(id);
+    fetch(`/bucket_lists/${id}`, {
+        method: "PATCH",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ activity_id: id }),
+    }).then((res) => res.json());
+    setTimeout(() => {
+      alert('Item added to bucket list!')
+    }, 1000)
+    }
 
-  if (user) {
-  return (
-    <>
-     <div className="activity-container">
-        <h3>See Your Activities Here</h3>
-        <div>{activityCard}</div>
-     </div>
-     <div>
-        <h3>Add A Note</h3>
-        <div>{notesCard}</div>
+   return(
+    <div>
+      <h4>
+        See your bucket list here. 
+      </h4>
+      <DisplayBucketList handleBucketList={handleBucketList}/>
+      <BucketListForm />
     </div>
-     
-    </>
-  )
-  } else {
-    return (
-        <h4>Please sign in to create Bucket List</h4>
-        )
-  }
+    
+   )
 }
 
 export default BucketListContainer

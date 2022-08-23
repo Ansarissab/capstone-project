@@ -11,7 +11,7 @@ ActivityBucketList.destroy_all
 puts "Getting new data..."
 #creating users
 
-u1 = User.create!( username: "Hayetk", password_digest: "test" )
+ User.create!( username: "Hayetk", password_digest: "test" )
 
 
 # creating categories
@@ -52,17 +52,18 @@ a12 = Activity.create!( category_id: c4.id, image_url:"https://ichef.bbci.co.uk/
 
 #creating likes
 5.times do
-    Like.create!( user_id: u1.id, activity_id: Activity.all.sample.id, likes: rand(1..20) )
+    Like.create!( user_id:User.all.sample.id, activity_id: Activity.all.sample.id, likes: rand(1..20) )
 end
 
-#creating bucket list
-5.times do
-    BucketList.create!( user_id: u1.id, name:Faker::Hobby.activity)
-end
+b1 = BucketList.create!(user_id:User.all.sample.id , name: "list 1")
+b2 = BucketList.create!(user_id:User.all.sample.id , name: "list 2")
+b3 = BucketList.create!(user_id:User.all.sample.id , name: "list 3")
+
+a1 = ActivityBucketList.create!(activity_id:Activity.all.sample.id , bucket_list_id: BucketList.all.sample.id)
+a2 = ActivityBucketList.create!(activity_id:Activity.all.sample.id , bucket_list_id: BucketList.all.sample.id)
+a3 = ActivityBucketList.create!(activity_id:Activity.all.sample.id , bucket_list_id: BucketList.all.sample.id)
+
 
 #creating activity bucket list
-5.times do
-    ActivityBucketList.create!(activity_id:Activity.all.sample.id, bucket_list_id:BucketList.all.sample.id)
-end
 
 puts "seeding done!"

@@ -3,9 +3,9 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.all
+    categories = Category.all
 
-    render json: @categories
+    render json: categories
   end
 
   # GET /categories/1

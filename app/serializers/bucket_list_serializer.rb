@@ -1,3 +1,3 @@
 class BucketListSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :name, :note
+  attributes :id, :user_id, :name, :activities
 end

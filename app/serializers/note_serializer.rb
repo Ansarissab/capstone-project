@@ -1,3 +1,3 @@
 class NoteSerializer < ActiveModel::Serializer
-  attributes :id, :title, :note
+  attributes :id, :title, :content
 end
