@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
       render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_user
     end
     
-    def render_not_found_response(exception)
+    def render_not_found_response(error)
       render json: { errors: { error.model => "Not Found" }}, status: :not_found
     end 
 

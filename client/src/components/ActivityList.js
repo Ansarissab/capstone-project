@@ -1,11 +1,18 @@
 import React from 'react'
 import ActivityCard from './ActivityCard'
 import { useState, useEffect } from 'react'
+import BucketListModal from './BucketListModal'
 
 const ActivityList = ({categories, onActivityClick}) => {
   // {categories ? console.log(categories) : console.log('no categories yet')} 
 
   const [activityBucketLists, setActivityBucketLists] = useState([])
+  // const [bucketListModalOpen, setBucketListModalOpen] = useState(false)
+
+  // function onCloseBucketListModal () {
+  //   setBucketListModalOpen(false)
+  // }
+  
 
   useEffect(()=>{
   fetch("/activity_bucket_lists")
@@ -14,6 +21,8 @@ const ActivityList = ({categories, onActivityClick}) => {
 
   },[])
 
+  
+
   return (
     <>
       <div>Categories with Activities List</div>
@@ -21,8 +30,11 @@ const ActivityList = ({categories, onActivityClick}) => {
       <ActivityCard key={category.id} 
                     category={category} 
                     onActivityClick={onActivityClick}
+                    // onActivityClick={() => setBucketListModalOpen(true)}
       />
       )}
+      {/* <BucketListModal open={bucketListModalOpen} handleClose={onCloseBucketListModal} /> */}
+      
     </>
   )
 }

@@ -2,33 +2,42 @@ import { React, useState } from 'react'
 import ActivityList from './ActivityList'
 import { useEffect } from 'react-router-dom'
 
-const BucketListForm = ({ user, bucketLists, activity,  onActivityClick }) => {
+const BucketListForm = ({ user, bucketLists, activityId,  onActivityClick }) => {
 
     const [name, setName] = useState('')
     const [activities, setActivities]= useState([])
 
-    function addActivity(){
-      
-       fetch("/bucket_lists", {
+    
+    console.log(activityId)
+    function addToBucketList(activityId) {
+        // add api to create new bucket in db
+
+        fetch("/create_bucket_list_and_activities", {
        method: "POST",
        headers: {
            "Content-Type": "application/json",
        },
-       body: activities,
+       credentials: 'include',
+       body: JSON.stringify(
+        {name, activity_id: activityId})
        }).then(r => r.json())
-       .then(data => setActivities(activities) )
-   
-    }    
+       
+      setName('')
+    console.log(activityId)
+    }
     
     function handleSubmit(e) {
         e.preventDefault()
-        this.props.addActivity(this.state.activity)
+        console.log("submitting the form");
+        addToBucketList()
+        // this.props.addActivity(this.state.activity)
+        // onActivityClick()
     }
 
     
   return (
         <div>
-        <form className="post-form" >
+        <form className="post-form" onSubmit={handleSubmit} >
             <div className="input-field">
                 <label htmlFor='title'>Name this bucket list:</label><br></br>
                 <input 
@@ -39,7 +48,7 @@ const BucketListForm = ({ user, bucketLists, activity,  onActivityClick }) => {
                         placeholder="name"
                         onChange={(e)=>setName(e.target.value)}
                     /><br></br>
-                <button type='submit' onSubmit={handleSubmit} onClick={onActivityClick}>Create Bucket List</button>
+                <button type='submit'>Create Bucket List</button>
             </div>
         </form>  
         </div>

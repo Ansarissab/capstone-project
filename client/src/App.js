@@ -11,8 +11,7 @@ import About from "./components/About";
 import Signup from "./components/Signup";
 import BucketListContainer from "./components/BucketListContainer";
 import SignOut from "./components/SignOut"
-
-// import ActivityList from "./components/ActivityList";
+import BucketListModal from "./components/BucketListModal";
 
 function App(){
   
@@ -22,6 +21,10 @@ function App(){
   const [bucketLists, setBucketLists] = useState([]);
   const [count, setCount] = useState([0])
   const [activities, setActivities] = useState([])
+    const [bucketListModalOpen, setBucketListModalOpen] = useState(false)
+    const [selectedActivity, setSelectedActivity] = useState(null)
+    const [activityId, setactivityId] = useState(null)
+
   const [userBucketLists, setUserBucketLists] = useState([])
   // const [reload, setReload] = useState(false);
   // const [e ,setE] = useState({})
@@ -61,9 +64,7 @@ function App(){
     .then((r) => r.json())
     .then((bucketLists) => setBucketLists(bucketLists))
   }
-  function postToBucketList(){
-    console.log('posting')
-  }
+ 
   useEffect(()=>{
     fetchBucketListData()
   },[])
@@ -75,20 +76,28 @@ function App(){
     .then((activities) => setActivities(activities))
   },[])
 
-
+  
+function onCloseBucketListModal () {
+    setBucketListModalOpen(false)
+  }
+  
 
   function addToBucketList (activity,id){
-    console.log('adding to bucket list')
-    if (!bucketLists[id]){
-      console.log(activity)
-      setBucketLists([...bucketLists, activity])
-      // prompt("Do you want to add this to your existing wishlist?\n- TestList 1\n- Ghana Trip\n\nTo put this in a new wish list, type the wishlist name");
-      alert('Don3!')
-    }else{
-      alert("Activity already in bucket list")
-    }
+    console.log(activity)
+    console.log(id)
+    setBucketListModalOpen(true)
+    setSelectedActivity(activity)
+    setactivityId(id)
+    // if (!bucketLists[id]){
+    //   console.log(activity)
+    //   setBucketLists([...bucketLists, activity])
+    //   // prompt("Do you want to add this to your existing wishlist?\n- TestList 1\n- Ghana Trip\n\nTo put this in a new wish list, type the wishlist name");
+    //   alert('Don3!')
+    // }else{
+    //   alert("Activity already in bucket list")
+    // }
   }
-
+console.log(activityId)
  function logInPrompt (){
   alert("Please sign in to add activity to your bucket list")
  }
@@ -111,11 +120,14 @@ function App(){
   // }
 
 
+  
 
 
   return (
    <>
     <Navbar user={user}/>
+    <BucketListModal selectedActivity={selectedActivity} open={bucketListModalOpen} handleClose={onCloseBucketListModal} activityId={activityId}/>
+
     <main>
       {user ? (
     <Routes>
@@ -148,9 +160,6 @@ function App(){
     </main>
     </>
        
-    // <div className="App">
-    //   <h1>Page Count: {count}</h1>
-    // </div>
   );
 }
 

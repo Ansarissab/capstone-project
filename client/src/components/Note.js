@@ -2,32 +2,34 @@ import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const Note = ({user, notes}) => {
+const Note = ({user, notes, bucketList}) => {
 
 
     const [title, setTitle] = useState('')
-    const [note, setNote] = useState('')
+    const [content, setContent] = useState('')
     const [isPending, setIsPending]= useState(false)
+    
     const navigate = useNavigate()
-    let id = user.id
+    // let id = bucketList.id
 
     function handleSubmit(e){
         e.preventDefault()
-        const noteContent = { title, note }
+        const noteContent = { title, content }
 
         setIsPending(true)
+        console.log(e)
 
-        fetch('/notes',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-                body: JSON.stringify( noteContent ),
-        }).then(() =>{
-            console.log('new note added')
-            setIsPending(false)
-            navigate.push('/')
-        });
+        // fetch('/notes',{
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //         body: JSON.stringify( noteContent ),
+        // }).then(() =>{
+        //     console.log('new note added')
+        //     setIsPending(false)
+        //     navigate('/bucket_lists')
+        // });
 
     }
 
@@ -49,9 +51,9 @@ const Note = ({user, notes}) => {
             <input className="content-input"
                 type='text' 
                 name='note' 
-                value={note}
+                value={content}
                 placeholder="content"
-                onChange={(e)=>setNote(e.target.value)}
+                onChange={(e)=>setContent(e.target.value)}
             /><br></br>
             <button>{isPending ? "Creaating Note..." : "Create Note"}</button>
         </div>
