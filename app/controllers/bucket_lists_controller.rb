@@ -1,12 +1,12 @@
 class BucketListsController < ApplicationController
-  before_action :set_bucket_list, only: %i[ show update destroy ]
-  # before_action :set_user, only: [ :new, :create ]
+   before_action :set_bucket_list, only: %i[ show update destroy ]
+  #  before_action :set_user, only: [ :new, :create ]
 
   # GET /bucket_lists
   def index
-    bucket_lists = BucketList.all
+    @bucket_lists = BucketList.all
 
-    render json: bucket_lists
+    render json: @bucket_lists, status: :ok
   end
 
   def user_bucket_lists
@@ -21,14 +21,29 @@ class BucketListsController < ApplicationController
 
   # POST /bucket_lists
   def create
-    @bucket_list =BucketList.new(bucket_list_params)
+    @bucket_list =BucketList.new(name: params[:name], user_id: session[:user_id])
+    puts "created"
 
     if @bucket_list.save
       render json: @bucket_list, status: :created, location: @bucket_list
+      puts "new list created"
     else
       render json: @bucket_list.errors, status: :unprocessable_entity
+      puts "list not created"
+
     end
   end
+
+  # def create 
+  #   if params[:bucket_list_id] == 0
+  #     @bucketList = BucketList.create!(name: params[:bucket_list_name], user_id: session[:user.id])
+  #   else
+  #     @bucketList = BucketList.find(id: params[:bucket_list_id])
+  #   end
+  #   render json: @bucketList
+  # end
+
+
 
   # PATCH/PUT /bucket_lists/1
   def update
@@ -52,6 +67,6 @@ class BucketListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bucket_list_params
-      params.permit(:user_id, :name)
+      params.require(:bucket_list).permit(:user_id, :name)
     end
 end

@@ -3,7 +3,7 @@ class CreateNotes < ActiveRecord::Migration[7.0]
     create_table :notes do |t|
       t.string :title
       t.string :content
-
+       t.integer :bucket_list_id
       t.timestamps
     end
   end

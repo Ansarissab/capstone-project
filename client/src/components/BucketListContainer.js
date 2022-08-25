@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ActivityCard from './ActivityCard'
-import Note from './Note'
+
 import BucketListForm from './BucketListForm'
-import DisplayBucketList from './DisplayBucketList'
+import CreatedBucketLists from './CreatedBucketLists'
 
 const BucketListContainer = () => {
   const [bucketLists, setBucketLists] = useState([])
@@ -27,8 +27,8 @@ const BucketListContainer = () => {
       <h4>
         See your bucket list here. 
       </h4>
-      <DisplayBucketList handleBucketList={handleBucketList}/>
-      <BucketListForm />
+      <CreatedBucketLists/>
+     
     </div>
     
    )

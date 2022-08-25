@@ -14,15 +14,17 @@ class ActivityBucketListsController < ApplicationController
   end
 
   # POST /activity_bucket_lists
-  def create
-    @activity_bucket_list = ActivityBucketList.new(activity_bucket_list_params)
 
-    if @activity_bucket_list.save
+  def create
+    @activity_bucket_list = ActivityBucketList.create!(activity_bucket_list_params)
       render json: @activity_bucket_list, status: :created, location: @activity_bucket_list
-    else
-      render json: @activity_bucket_list.errors, status: :unprocessable_entity
-    end
   end
+
+  # def create
+  #   activity_bucket_list = ActivityBucketList.create!(bucket_list_id: params[:bucket_list_id], activity_id: params[:activity_id] )
+  #   render json: activity_bucket_list, status: :ok
+  # end
+
 
   # PATCH/PUT /activity_bucket_lists/1
   def update
