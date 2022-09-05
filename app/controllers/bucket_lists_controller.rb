@@ -4,9 +4,9 @@ class BucketListsController < ApplicationController
 
   # GET /bucket_lists
   def index
-    @bucket_lists = BucketList.all
+    bucket_lists = BucketList.all
 
-    render json: @bucket_lists, status: :ok
+    render json: bucket_lists, status: :ok
   end
 
   def user_bucket_lists

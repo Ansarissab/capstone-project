@@ -23,7 +23,7 @@ function App(){
   const [activities, setActivities] = useState([])
     const [bucketListModalOpen, setBucketListModalOpen] = useState(false)
     const [selectedActivity, setSelectedActivity] = useState(null)
-    const [activityId, setactivityId] = useState(null)
+    const [activityId, setactivityId] = useState([])
 
   const [userBucketLists, setUserBucketLists] = useState([])
   // const [reload, setReload] = useState(false);
@@ -53,11 +53,6 @@ function App(){
   }, []);
 
 
-  useEffect(()=>{
-    fetch("/notes")
-    .then((r) => r.json())
-    .then((notes) => setNotes(notes))
-  },[])
 
   function fetchBucketListData(){
      fetch("/bucket_lists")
@@ -79,7 +74,7 @@ function App(){
   
 function onCloseBucketListModal () {
     setBucketListModalOpen(false)
-  }
+}
   
 
   function addToBucketList (activity,id){
@@ -87,7 +82,7 @@ function onCloseBucketListModal () {
     console.log(id)
     setBucketListModalOpen(true)
     setSelectedActivity(activity)
-    setactivityId(id)
+    // setactivityId(id)
     // if (!bucketLists[id]){
     //   console.log(activity)
     //   setBucketLists([...bucketLists, activity])
@@ -98,9 +93,10 @@ function onCloseBucketListModal () {
     // }
   }
 console.log(activityId)
- function logInPrompt (){
+
+function logInPrompt (){
   alert("Please sign in to add activity to your bucket list")
- }
+}
 //  useEffect(() => {
 //     console.log(bucketLists)
 //   }, [bucketLists])
@@ -126,13 +122,13 @@ console.log(activityId)
   return (
    <>
     <Navbar user={user}/>
-    <BucketListModal selectedActivity={selectedActivity} open={bucketListModalOpen} handleClose={onCloseBucketListModal} activityId={activityId}/>
+    <BucketListModal selectedActivity={selectedActivity} open={bucketListModalOpen} handleClose={onCloseBucketListModal} activities={activities} activityId={activityId} bucketLists={bucketLists}/>
 
     <main>
       {user ? (
-    <Routes>
+        <Routes>
          <Route path="/home" element={<Home categories={categories} activities={activities}/>} /> 
-           <Route path="/about" element={<About/>} />
+      <Route path="/about" element={<About/>} />
           <Route path="/categories" element={<ActivityList 
             categories={categories} 
             activities={activities}
@@ -142,7 +138,7 @@ console.log(activityId)
             notes={notes} 
             bucketLists={bucketLists} 
             setBucketLists={setBucketLists}/>}/>
-          <Route path="/signup" element={<SignOut/>} />
+          <Route path="/signout" element={<SignOut/>} />
     </Routes>
     ):(
     <Routes>

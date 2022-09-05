@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Note from './Note'
 
 
-const CreatedBucketLists = ({selectedActivity}) => {
+const CreatedBucketLists = ({selectedActivity, bucketId}) => {
 
   const [activityBucketList, setActivityBucketList] =useState([]);
 
@@ -33,14 +33,14 @@ console.log(selectedActivity)
       <h6>Created Bucket Lists</h6>
       {activityBucketList.map((list) => {
         return <div key={list.id} onClick={(e)=>{handleId(list)}}>
-          <div>{list.activity.name}</div>
+          <div className="render-activity-info"><div >{list.activity.name}</div>
           <a href={list.activity.image_url}>
             <img src={list.activity.image_url} alt="activity" />
           </a>
-
+</div>
+<Note bucketId={bucketId}/>
           </div>
       })}
-     
     </div>
     
   )

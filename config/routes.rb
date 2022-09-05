@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :notes, only: [:index, :show, :create, :edit, :destroy]
+  resources :notes
   resources :activity_bucket_lists
   resources :bucket_lists
   
@@ -24,5 +24,4 @@ Rails.application.routes.draw do
   post '/create_bucket_list_and_activities', to: 'customs#create'
 
   get '/user_bucket_lists', to: 'bucket_lists#user_bucket_lists'
-
 end

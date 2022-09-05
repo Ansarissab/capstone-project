@@ -12,8 +12,7 @@ const ActivityCard = ({ user, category, activity, onActivityClick }) => {
               <div className='card-container'>
                   Experience {category.name} with the following:
                    {category.activities.map(activity=>( 
-                <div className='activity-container' key={activity.id}>
-                  <div className="render-activity-info" >
+                  <section className="render-activity-info" key={activity.id} >
                     <h4 className="activity-name">{activity.name}</h4>
                     <div className="activity-description">{activity.description}</div>
                     <div className="image-container">
@@ -22,8 +21,7 @@ const ActivityCard = ({ user, category, activity, onActivityClick }) => {
                       </a>
                     </div>
                     <button onClick={()=>onActivityClick(activity, activity.id)}>Add to Bucket List</button>
-                  </div>
-                </div>
+                  </section>
                 ))}
               </div>
                

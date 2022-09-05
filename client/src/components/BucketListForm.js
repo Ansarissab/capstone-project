@@ -2,34 +2,39 @@ import { React, useState } from 'react'
 import ActivityList from './ActivityList'
 import { useEffect } from 'react-router-dom'
 
-const BucketListForm = ({ user, bucketLists, activityId,  onActivityClick }) => {
-
+const BucketListForm = ({ user, bucketLists, activityId,  onActivityClick, activities}) => {
     const [name, setName] = useState('')
-    const [activities, setActivities]= useState([])
+console.log(activities.id)
+     const [activity, setActivity]= useState([])
+    function addToBucketList(activities, activityId,bucketLists) {
+        // let bucketId=bucketLists.id
+        console.log(bucketLists)
+        let bucketId = bucketLists.id
+        let id=activities.id
+        console.log(id)
 
-    
-    console.log(activityId)
-    function addToBucketList(activityId) {
-        // add api to create new bucket in db
-
-        fetch("/create_bucket_list_and_activities", {
+       fetch("/bucket_lists", {
        method: "POST",
        headers: {
            "Content-Type": "application/json",
        },
        credentials: 'include',
        body: JSON.stringify(
-        {name, activity_id: activityId})
-       }).then(r => r.json())
+        {
+        name,
+        activity_id: id
        
-      setName('')
-    console.log(activityId)
+        })
+       }).then(r => r.json())
+       setName('')
+       setActivity(activities.id)
+
     }
     
     function handleSubmit(e) {
         e.preventDefault()
         console.log("submitting the form");
-        addToBucketList()
+        addToBucketList(activityId,bucketLists,activities)
         // this.props.addActivity(this.state.activity)
         // onActivityClick()
     }

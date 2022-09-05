@@ -8,6 +8,7 @@ function SignOut({ user, setUser }) {
 
     function handleLogout (e) {
 
+        e.preventDefault();
         fetch(`/signout`, {
             method: "DELETE"
         })
@@ -16,13 +17,13 @@ function SignOut({ user, setUser }) {
                     setUser(null)
                 }
             })
-        navigate('/signin')
+        navigate('/login')
     
     }
 
     return (
         <div>
-            sign 
+            you have successfully signed out. Goodbye
         </div>
     )
 }

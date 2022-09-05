@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ActivityCard from './ActivityCard'
+import Note from './Note'
 
 import BucketListForm from './BucketListForm'
 import CreatedBucketLists from './CreatedBucketLists'

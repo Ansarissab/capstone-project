@@ -1,37 +1,50 @@
 import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import CreatedBucketLists from './CreatedBucketLists';
 
-
-const Note = ({user, notes, bucketList}) => {
-
+const Note = ({user, bucketId, bucketList}) => {
+  console.log(bucketId)
+  console.log(bucketList)
+  const [notes, setNotes] = useState([])
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
-    const [isPending, setIsPending]= useState(false)
     
-    const navigate = useNavigate()
-    // let id = bucketList.id
+    let navigate = useNavigate()
+    //  let id = bucketList.id
+      useEffect(()=>{
+    fetch("/notes")
+    .then((r) => r.json())
+    .then((notes) => setNotes(notes))
+  },[])
+
+  function addToNotes(bucketId, id){
+    console.log(bucketId)
+   fetch("/notes",{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials:'include',
+        body: JSON.stringify( {
+           bucket_list_id: bucketId,
+          title,content
+        } ),
+     }).then(r =>r.json())
+     setTitle('')
+     setContent('')
+  }
 
     function handleSubmit(e){
         e.preventDefault()
-        const noteContent = { title, content }
-
-        setIsPending(true)
+  
         console.log(e)
+        addToNotes()
+       
 
-        // fetch('/notes',{
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //         body: JSON.stringify( noteContent ),
-        // }).then(() =>{
-        //     console.log('new note added')
-        //     setIsPending(false)
-        //     navigate('/bucket_lists')
-        // });
-
-    }
+      }
+      
+     
 
   return (
     <>
@@ -55,7 +68,7 @@ const Note = ({user, notes, bucketList}) => {
                 placeholder="content"
                 onChange={(e)=>setContent(e.target.value)}
             /><br></br>
-            <button>{isPending ? "Creaating Note..." : "Create Note"}</button>
+            <button>Create Note</button>
         </div>
      </form>
     </div>

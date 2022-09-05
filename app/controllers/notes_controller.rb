@@ -3,24 +3,25 @@ class NotesController < ApplicationController
 
   # GET /notes
   def index
-    @notes = Note.all
+    notes = Note.all
 
-    render json: @notes
+    render json: notes
   end
 
   # GET /notes/1
   def show
-    render json: @note
+    render json: note
   end
 
   # POST /notes
   def create
-    @note = Note.create!(note_params)
+  
+    note = Note.create!(bucket_list_id:params[:bucket_list_id],title: params[:title],content:params[:content])
 
-    if @note
-      render json: @note, status: :created, location: @note
+    if note
+      render json: note, status: :created, location: note
     else
-      render json: @note.errors, status: :unprocessable_entity
+      render json: note.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +47,7 @@ class NotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def note_params
-      params.require(:note).permit(:title, :content,:bucket_list_id)
+      params.permit(:title, :content)
     end
+    # require(:note).
 end

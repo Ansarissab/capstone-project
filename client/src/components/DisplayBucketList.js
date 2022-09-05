@@ -12,13 +12,11 @@ const DisplayBucketList = ({selectedActivity}) => {
     .then((response) => {
       setBucketList(response)
     })
-
-
   }, [])
 
     function addActivityToList(activity, bucketList) {
         // add api to create new bucket in db
-        
+        console.log(bucketList)
         let bucketId = bucketList.id
 
         fetch("/activity_bucket_lists", {
@@ -40,7 +38,11 @@ const DisplayBucketList = ({selectedActivity}) => {
     <div>
       <h6>Existing Bucket List</h6>
       {bucketList.map((bucket, index) => {
-        return <div key={index}>{bucket.name} <button onClick={() => addActivityToList(bucket.id)}>Add In This List</button></div>
+        return <div key={index}>
+          {bucket.name} 
+          <button onClick={() => addActivityToList(bucket.id)}>
+            Add In This List
+          </button></div>
       })}
     </div>
     
